@@ -87,13 +87,14 @@ def main():
         print("获取 DNS 记录失败。")
         return
     
+    if len(ip_addresses) > len(dns_records):
+        print(f"IP 地址数量 ({len(ip_addresses)}) 超过了 DNS 记录数量 ({len(dns_records)})。")
+        return
+    
     push_plus_content = []
     for index, ip_address in enumerate(ip_addresses):
-        if index < len(dns_records):
-            dns = update_dns_record(dns_records[index], CF_DNS_NAME, ip_address)
-            push_plus_content.append(dns)
-        else:
-            break
+        dns = update_dns_record(dns_records[index], CF_DNS_NAME, ip_address)
+        push_plus_content.append(dns)
 
     push_plus('\n'.join(push_plus_content))
 
